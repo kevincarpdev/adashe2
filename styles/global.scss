@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.header {
+  @apply fixed top-0 z-40 flex w-full px-4 text-white;
+}

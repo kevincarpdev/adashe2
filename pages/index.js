@@ -35,7 +35,7 @@ export default function Home() {
       </Head>
       <header
         className={clsx(
-          'align-center fixed top-0 z-40 flex h-header-sm w-full px-4 text-white',
+          'header',
           'md:px-8',
           'lg:h-header-lg',
         )}
