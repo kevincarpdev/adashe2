@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-      {/* Add Google fonts here */}
+          {/* Add Google fonts here */}
         </Head>
         <body>
           <Main />
