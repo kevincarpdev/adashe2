@@ -160,13 +160,12 @@ export default function Home() {
       
       <header className="hero">
         <div className="container">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-4 place-items-center">
             <div className="col-span-2">
               <h1>Buy Adashe (ADSE)</h1>
               <div className="panel-content">
                 <span className='subheader'>Adashe is the primary utility token of our ecosystem and enables you to participate in our upcoming generation staking rewards program as well as earn by providing stability to the ADSE Stablecoin.</span>
                 <p><span className="price"><span className="highlight">1 ADSE = $0.00025 USD</span></span></p>
-                <p>Get whitelisted for our upcoming presale <Link href={'/'}>here</Link></p>
                 <motion.button
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 1.0 }}
@@ -188,30 +187,40 @@ export default function Home() {
           </div>
         </div>
       </header>
-      <main className="flex flex-col justify-center align-items-center">
-        <div className="page-break">
+      <main className="flex flex-col justify-center align-items-center text-center">
+        {/* <div className="page-break">
           <Image src="/public/PageBreak.svg" width="1680" height="40" />
-        </div>
-        <div className="flex items-center justify-center">
-          <div className="panel-layout">
-            <div className="panel">
-              <h2>Details</h2>
-              <div className="panel-content">
-                <span className='subheader'><h3>Supply</h3></span>
-                <p>A total of a 750,000,000 ADSE (7.5% of the supply) is available for the presale event. The total ADSE supply is 10,000,000,000.</p>
+        </div> */}
+        <section>
+          <h2 className="page-header">Details</h2>
+          <div className="flex items-center justify-center">
+            <div className="panel-layout">
+              <div className="panel">
+                <div className="panel-content">
+                  <span className='subheader'><h3>Supply</h3></span>
+                  <p>A total of a 750,000,000 ADSE (7.5% of the supply) is available for the presale event. The total ADSE supply is 10,000,000,000.</p>
+                </div>
               </div>
-              <div className="panel-content">
-                <span className='subheader'><h3>Terms</h3></span>
-                <p>The contract accepts MATIC and the token price will begin at $0.000025 or 3200 ADSE per MATIC. The event will run until all tokens are sold.</p>
+              <div className="panel">
+                <div className="panel-content">
+                  <span className='subheader'><h3>Terms</h3></span>
+                  <p>The contract accepts MATIC and the token price will begin at $0.000025 or 3200 ADSE per MATIC. The event will run until all tokens are sold.</p>
+                </div>
               </div>
-              <div className="panel-content">
-                <span className='subheader'><h3>Fair Distribution</h3></span>
-                <p>There is no front-running and being first or last doesn&apos;t matter. All participants will receive ADSE at the same rate depending on how much is purchased.</p>
+              <div className="panel">
+                <div className="panel-content">
+                  <span className='subheader'><h3>Fair Distribution</h3></span>
+                  <p>There is no front-running and being first or last doesn&apos;t matter. All participants will receive ADSE at the same rate depending on how much is purchased.</p>
+                </div>
               </div>
             </div>
-            
+          </div>
+        </section>
+        
+        <section>
+          <h2 className="page-header">Token Allocation</h2>
+          <div className="panel-layout full">
             <div className="panel">
-              <h2>Token Allocation</h2>
               <div className="panel-content">
                 <PieChart
                   data={[
@@ -231,11 +240,13 @@ export default function Home() {
                   }}
                   className="pieChart"
                 />
-                <p>Learn about our tokenomics <Link href={'/'}>here</Link></p>
+                {/* <p>Learn about our tokenomics <Link href={'/'}>here</Link></p> */}
               </div>
             </div>
           </div>
-        </div>
+        </section>
+        
+        
         {/* <div className="disclaimer">
           <p>Please make sure you are connected to the right network Mumbai mainnet and the correct address.</p>
           <p>NOTE: you may need to <Link href={'/'}>bridge</Link> or <Link href={'/'}>swap</Link> assets.</p>
