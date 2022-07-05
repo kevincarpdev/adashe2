@@ -10,12 +10,26 @@ import { PieChart } from 'react-minimal-pie-chart';
 import { motion } from "framer-motion";
 
 export default function Home() {
-  const { Moralis } = useMoralis();
-  async function login() {
-    await Moralis.Web3.enableWeb3();
-    await Moralis.Web3.authenticate();
-    console.log(Moralis.User.current().get("ethAddress"));
+  const { authenticate, isAuthenticated, user, Moralis } = useMoralis();
+  Moralis.getSigningData = () => "Adashe (ADSE)";
+
+  const login = async () => {
+    if (!isAuthenticated) {
+
+      await authenticate()
+        .then(function (user) {
+          console.log(Moralis.User.current().get("ethAddress"));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   }
+  // async function login() {
+  //   await Moralis.Web3.enableWeb3();
+  //   await Moralis.Web3.authenticate();
+  //   console.log(Moralis.User.current().get("ethAddress"));
+  // }
   const particlesInit = async (main) => {
     console.log(main);
 
@@ -160,8 +174,8 @@ export default function Home() {
       
       <header className="hero">
         <div className="container">
-          <div className="grid grid-cols-3 gap-4 place-items-center">
-            <div className="col-span-2">
+          <div className="hero-grid">
+            <div className="hero-text">
               <h1>Buy Adashe (ADSE)</h1>
               <div className="panel-content">
                 <span className='subheader'>Adashe is the primary utility token of our ecosystem and enables you to participate in our upcoming generation staking rewards program as well as earn by providing stability to the ADSE Stablecoin.</span>
@@ -172,7 +186,7 @@ export default function Home() {
                   className="btn"
                   onClick={login}
                 >
-                  Connect
+                  {isAuthenticated ? 'Sign Out' : 'Connect'}
                 </motion.button>
               </div>
             </div>
@@ -195,33 +209,42 @@ export default function Home() {
           <h2 className="page-header">Details</h2>
           <div className="flex items-center justify-center">
             <div className="panel-layout">
-              <div className="panel">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 1.0 }}
+                className="panel"
+              >
                 <div className="panel-content">
                   <span className='subheader'><h3>Supply</h3></span>
                   <p>A total of a 750,000,000 ADSE (7.5% of the supply) is available for the presale event. The total ADSE supply is 10,000,000,000.</p>
                 </div>
-              </div>
-              <div className="panel">
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 1.0 }}
+                className="panel"
+              >
                 <div className="panel-content">
                   <span className='subheader'><h3>Terms</h3></span>
                   <p>The contract accepts MATIC and the token price will begin at $0.000025 or 3200 ADSE per MATIC. The event will run until all tokens are sold.</p>
                 </div>
-              </div>
-              <div className="panel">
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 1.0 }}
+                className="panel"
+              >
                 <div className="panel-content">
                   <span className='subheader'><h3>Fair Distribution</h3></span>
                   <p>There is no front-running and being first or last doesn&apos;t matter. All participants will receive ADSE at the same rate depending on how much is purchased.</p>
                 </div>
-              </div>
+            </motion.div>
             </div>
           </div>
         </section>
         
         <section>
           <h2 className="page-header">Token Allocation</h2>
-          <div className="panel-layout full">
-            <div className="panel">
-              <div className="panel-content">
                 <PieChart
                   data={[
                     { title: '30%', value: 30, color: '#775BB4' },
@@ -230,7 +253,6 @@ export default function Home() {
                     { title: '9.5%', value: 9.5, color: '#2E52E1' },
                     { title: '3%', value: 3, color: '#775BB4' },
                     { title: '5%', value: 5, color: '#3174C7' },
-
                   ]}
                   radius={PieChart.defaultProps.radius - shiftSize}
                   segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
@@ -241,9 +263,7 @@ export default function Home() {
                   className="pieChart"
                 />
                 {/* <p>Learn about our tokenomics <Link href={'/'}>here</Link></p> */}
-              </div>
-            </div>
-          </div>
+              
         </section>
         
         

@@ -61,7 +61,7 @@ p, h1, h2, h3 {
 }
 
 h1 {
-  @apply text-5xl;
+  @apply text-5xl leading-normal;
 }
 
 h2 {
@@ -127,7 +127,8 @@ main {
 }
 
 .logo {
-  max-width: 350px;
+  max-width: 200px;
+  @apply order-1 lg:order-2 text-center col-span-2 lg:col-span-1 lg:max-w-xl;
 }
 
 .btn {
@@ -161,6 +162,13 @@ img {
   min-height: 75vh;
 }
 
+.hero-grid {
+  @apply grid lg:grid-cols-3 gap-4 place-items-center;
+}
+
+.hero-text {
+  @apply order-2 col-span-2 lg:order-1 text-center lg:text-left;
+}
 span.highlight {
   background: -webkit-linear-gradient(-70deg, var(--purple) 0, #3174c7 100%);
   -webkit-background-clip: text;
