@@ -213,12 +213,13 @@ section svg {
 }
 
 .tabs ul {
-  @apply flex gap-x-24;
+  @apply flex flex-col gap-y-4 sm:gap-y-0 sm:flex-row sm:gap-x-24;
 }
 
 .tabs ul li a {
   @apply relative no-underline text-gray-700 text-xl pb-2;
 }
+
 .tabs ul li a.selected {
   color: var(--blue);
 }
@@ -259,7 +260,7 @@ footer .footerLogo path {
 }
 
 footer ul {
-  @apply flex gap-x-12;
+  @apply flex flex-col gap-y-4 lg:flex-row lg:gap-x-12 lg:gap-y-0;
 }
 
 footer ul li a {
@@ -270,3 +271,24 @@ footer ul li a {
 footer ul li a:hover {
   color: #fff;
 }
+#topGraphic, #bottomGraphic {
+  @apply left-0 w-full absolute top-0;
+  height: 40px;
+}
+#topGraphic svg {
+  @apply relative;
+  bottom: -40px;
+}
+
+#topGraphic svg, #bottomGraphic svg{
+  @apply relative z-10;
+}
+@media screen and (max-width: 768px) {
+  #topGraphic {
+    bottom: -40px;
+  }
+  #bottomGraphic {
+    top: -10px;
+  }
+}
+  

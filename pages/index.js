@@ -69,6 +69,7 @@ export default function Home() {
       </Head>
       <Particles
         id="tsparticles"
+        init={particlesInit}
         options={{
           background: {
             color: {
@@ -174,8 +175,9 @@ export default function Home() {
       </header>
 
       <main className="flex flex-col justify-center align-items-center text-center">
-
-        <PageBreak />
+        <div id="topGraphic">
+          <PageBreak />
+        </div>
 
         <section className={cn(tabClasses, 'tabs')} ref={ref}>
           <ul>
@@ -265,7 +267,9 @@ export default function Home() {
         </div> */}
       </main>
       <footer>
-        <PageBreakBottom />
+        <div id="bottomGraphic">
+          <PageBreakBottom />
+        </div>
 
         <div className="footerLogo">
           <Image
