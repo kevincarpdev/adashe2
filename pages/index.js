@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import Head from "next/head";
-import Link from 'next/link'
 import { useMoralis } from "react-moralis";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
@@ -8,10 +7,15 @@ import mainLogo from '../public/logo.png'
 import Image from 'next/image'
 import { PieChart } from 'react-minimal-pie-chart';
 import { motion } from "framer-motion";
+import PageBreak from "../public/PageBreak.svg";
+import * as Scroll from 'react-scroll';
+import PageBreakBottom from "../public/PageBreakBottom.svg";
 
 export default function Home() {
+  // const [hasScrolled, setHasScrolled] = useState(false)
   const { authenticate, isAuthenticated, user, Moralis } = useMoralis();
   Moralis.getSigningData = () => "Adashe (ADSE)";
+  let ScrollLink = Scroll.Link;
 
   const login = async () => {
     if (!isAuthenticated) {
@@ -62,6 +66,27 @@ export default function Home() {
     hidden: { scale: 0, top: 100 },
     show: { scale: 1, top: 30 },
   }
+
+  // useEffect(() => {
+  //   const handleScroll = throttle(() => {
+      
+  //     const offset = 0
+  //     const { scrollTop } = document.documentElement
+  //     const scrolled = scrollTop > offset
+
+  //     if (hasScrolled !== scrolled) {
+  //       setHasScrolled(scrolled)
+  //     }
+  //   }, 200)
+
+  //   document.addEventListener('scroll', handleScroll)
+  //   return () => {
+  //     document.removeEventListener('scroll', handleScroll)
+  //   }
+    
+  // }, [hasScrolled])
+
+
   return (
     <div>
       <Head>
@@ -146,31 +171,6 @@ export default function Home() {
           detectRetina: true,
         }}
       />
-      {/* <header
-        className={clsx(
-          'header',
-          'md:px-8',
-          'lg:h-header-lg',
-        )}
-        role="banner"
-      >
-        <div
-          className={clsx(
-            'absolute right-0 flex h-full items-center',
-            'md:mr-4',
-          )}
-        >
-          
-          <div
-            className={clsx(
-              'hidden',
-              'lg:block',
-            )}
-          >
-            
-          </div>
-        </div>
-      </header> */}
       
       <header className="hero">
         <div className="container">
@@ -202,16 +202,23 @@ export default function Home() {
         </div>
       </header>
       <main className="flex flex-col justify-center align-items-center text-center">
-        {/* <div className="page-break">
-          <Image src="/public/PageBreak.svg" width="1680" height="40" />
-        </div> */}
-        <section>
-          <h2 className="page-header">Details</h2>
+
+        <PageBreak />
+
+        <section className="tabs">
+          <ul>
+            <li><ScrollLink to='supply' activeClass='selected' spy={true}>Supply</ScrollLink></li>
+            <li><ScrollLink to='terms' activeClass='selected' spy={true}>Terms</ScrollLink></li>
+            <li><ScrollLink to='distribution' activeClass='selected' spy={true}>Fair Distribution</ScrollLink></li>
+            <li><ScrollLink to='allocation' activeClass='selected' spy={true}>Token Allocaton</ScrollLink></li>
+          </ul>
+        </section>
+
+        <section id="supply">
           <div className="flex items-center justify-center">
             <div className="panel-layout">
               <motion.div
                 whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 1.0 }}
                 className="panel"
               >
                 <div className="panel-content">
@@ -219,9 +226,14 @@ export default function Home() {
                   <p>A total of a 750,000,000 ADSE (7.5% of the supply) is available for the presale event. The total ADSE supply is 10,000,000,000.</p>
                 </div>
               </motion.div>
+            </div>
+          </div>
+        </section>
+        <section id="terms">
+          <div className="flex items-center justify-center">
+            <div className="panel-layout">
               <motion.div
                 whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 1.0 }}
                 className="panel"
               >
                 <div className="panel-content">
@@ -229,21 +241,27 @@ export default function Home() {
                   <p>The contract accepts MATIC and the token price will begin at $0.000025 or 3200 ADSE per MATIC. The event will run until all tokens are sold.</p>
                 </div>
               </motion.div>
+              
+            </div>
+          </div>
+        </section>
+        <section id="distribution">
+          <div className="flex items-center justify-center">
+            <div className="panel-layout">
               <motion.div
                 whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 1.0 }}
                 className="panel"
               >
                 <div className="panel-content">
                   <span className='subheader'><h3>Fair Distribution</h3></span>
                   <p>There is no front-running and being first or last doesn&apos;t matter. All participants will receive ADSE at the same rate depending on how much is purchased.</p>
                 </div>
-            </motion.div>
+              </motion.div>
             </div>
           </div>
         </section>
         
-        <section>
+        <section id="allocation">
           <h2 className="page-header">Token Allocation</h2>
                 <PieChart
                   data={[
@@ -274,6 +292,24 @@ export default function Home() {
           <p>We recommend that you don&apos;t lower the gas limit.</p>
         </div> */}
       </main>
+      <footer>
+        <PageBreakBottom />
+
+        <div className="footerLogo">
+          <Image
+            src={mainLogo}
+            alt="Logo"
+            quality="85"
+            layout="intrinsic"
+          />
+        </div>
+        <ul>
+          <li><ScrollLink to='supply' activeClass='selected' spy={true}>Supply</ScrollLink></li>
+          <li><ScrollLink to='terms' activeClass='selected' spy={true}>Terms</ScrollLink></li>
+          <li><ScrollLink to='distribution' activeClass='selected' spy={true}>Fair Distribution</ScrollLink></li>
+          <li><ScrollLink to='allocation' activeClass='selected' spy={true}>Token Allocaton</ScrollLink></li>
+        </ul>
+      </footer>
 
     </div>
   );
