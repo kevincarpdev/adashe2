@@ -1,4 +1,6 @@
-import clsx from 'clsx';
+import React, { useState, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+import cn from 'classnames'
 import Head from "next/head";
 import { useMoralis } from "react-moralis";
 import Particles from "react-tsparticles";
@@ -12,7 +14,9 @@ import * as Scroll from 'react-scroll';
 import PageBreakBottom from "../public/PageBreakBottom.svg";
 
 export default function Home() {
-  // const [hasScrolled, setHasScrolled] = useState(false)
+  const [stuck, setStuck] = useState(false)
+  const ref = React.createRef()
+
   const { authenticate, isAuthenticated, user, Moralis } = useMoralis();
   Moralis.getSigningData = () => "Adashe (ADSE)";
   let ScrollLink = Scroll.Link;
@@ -34,58 +38,27 @@ export default function Home() {
   //   await Moralis.Web3.authenticate();
   //   console.log(Moralis.User.current().get("ethAddress"));
   // }
-  const particlesInit = async (main) => {
-    console.log(main);
 
-    // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
+  const particlesInit = async (main) => {
     await loadFull(main);
   };
 
-  const particlesLoaded = (container) => {
-    console.log(container);
-  };
   const defaultLabelStyle = {
     fontSize: '5px',
     fontFamily: 'sans-serif',
   };
   const shiftSize = 7;
+  const tabClasses = stuck ? 'tab-stuck' : 'tab-unstuck';
 
-  const container = {
-    hidden: { rotate: 180 },
-    show: {
-      rotate: 0,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
-  }
-  const panela = {
-    hidden: { scale: 0, top: 100 },
-    show: { scale: 1, top: 30 },
-  }
-
-  // useEffect(() => {
-  //   const handleScroll = throttle(() => {
-      
-  //     const offset = 0
-  //     const { scrollTop } = document.documentElement
-  //     const scrolled = scrollTop > offset
-
-  //     if (hasScrolled !== scrolled) {
-  //       setHasScrolled(scrolled)
-  //     }
-  //   }, 200)
-
-  //   document.addEventListener('scroll', handleScroll)
-  //   return () => {
-  //     document.removeEventListener('scroll', handleScroll)
-  //   }
-    
-  // }, [hasScrolled])
-
+  useEffect(() => {
+    const cachedRef = ref.current
+    const observer = new IntersectionObserver(
+      ([e]) => setStuck(e.intersectionRatio < 1),
+      { threshold: [1] }
+    )
+    observer.observe(cachedRef)
+    return () => observer.unobserve(cachedRef)
+  }, [ref])
 
   return (
     <div>
@@ -96,8 +69,6 @@ export default function Home() {
       </Head>
       <Particles
         id="tsparticles"
-        init={particlesInit}
-        loaded={particlesLoaded}
         options={{
           background: {
             color: {
@@ -201,11 +172,12 @@ export default function Home() {
           </div>
         </div>
       </header>
+
       <main className="flex flex-col justify-center align-items-center text-center">
 
         <PageBreak />
 
-        <section className="tabs">
+        <section className={cn(tabClasses, 'tabs')} ref={ref}>
           <ul>
             <li><ScrollLink to='supply' activeClass='selected' spy={true}>Supply</ScrollLink></li>
             <li><ScrollLink to='terms' activeClass='selected' spy={true}>Terms</ScrollLink></li>

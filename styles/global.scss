@@ -207,7 +207,9 @@ section svg {
 }
 .tabs {
   @apply top-0 py-8 sticky bg-white w-full flex justify-center z-20;
-  // box-shadow: rgba(140, 149, 159, 0.15) 0px 3px 6px 0px, rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;
+}
+.tab.tab-stuck {
+  box-shadow: rgba(140, 149, 159, 0.15) 0px 3px 6px 0px, rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;
 }
 
 .tabs ul {
