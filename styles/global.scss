@@ -96,6 +96,7 @@ a:hover {
 
 main {
   @apply relative bg-white pb-36;
+  background-color: #040d21;
 }
 
 .container {
@@ -107,7 +108,7 @@ main {
 }
 
 .panel-layout {
-  @apply relative grid grid-cols-1 lg:grid-cols-1 gap-x-8 gap-y-8 px-8 mb-12;
+  @apply relative grid grid-cols-1 lg:grid-cols-1 px-8;
 }
 
 .panel-layout.full {
@@ -115,10 +116,9 @@ main {
 }
 
 .panel {
-  @apply text-center p-10;
+  @apply flex text-center p-10 min-h-screen place-items-center;
   border-radius: 8px;
-  background-color: #040d21;
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 10%), 0 3px 2px rgb(0 0 0 / 4%), 0 7px 5px rgb(0 0 0 / 2%), 0 13px 10px rgb(0 0 0 / 2%), 0 22px 17px rgb(0 0 0 / 2%);
+  // box-shadow: 0 0 0 1px rgb(255 255 255 / 10%), 0 3px 2px rgb(0 0 0 / 4%), 0 7px 5px rgb(0 0 0 / 2%), 0 13px 10px rgb(0 0 0 / 2%), 0 22px 17px rgb(0 0 0 / 2%);
 }
 .panel.transparent {
   background-color: transparent;
@@ -200,7 +200,7 @@ span.highlight {
 
 section {
   @apply flex flex-col place-items-center justify-center py-12;
-  padding-top: calc(100px + 2em);
+  padding-top: calc(100px);
 }
 section svg {
   @apply max-w-lg mx-auto;
