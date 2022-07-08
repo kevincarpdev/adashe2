@@ -8,6 +8,9 @@ import { SelectOutlined } from "@ant-design/icons";
 import { getExplorer } from "../../helpers/networks";
 import Text from "antd/lib/typography/Text";
 import { connectors } from "./config";
+import Image from 'next/image'
+import MetaMask from '../../public/WalletIcons/metamaskWallet.png'
+import WalletConnect from '../../public/WalletIcons/wallet-connect.svg'
 
 const styles = {
   account: {
@@ -94,7 +97,18 @@ function Account() {
                   }
                 }}
               >
-                <img src={icon} alt={title} style={styles.icon} />
+                {connectorId == "injected" ?
+                  <Image
+                    src={MetaMask}
+                    alt={title}
+                    quality="85"
+                    layout="intrinsic"
+                    style={styles.icon}
+                  />
+                :
+                  <WalletConnect className="walletConnect" />
+                }
+                
                 <Text style={{ fontSize: "14px" }}>{title}</Text>
               </div>
             ))}
