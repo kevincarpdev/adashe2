@@ -65,7 +65,7 @@ h1,h2,h3,h4,h5 {
 }
 
 p {
- @apply text-lg;
+ @apply text-lg mb-0;
 }
 
 p, h1, h2, h3 {
@@ -152,6 +152,10 @@ main {
   border-radius: 4px;
   background: linear-gradient(180deg, rgba(52, 183, 89, .15), rgba(46, 164, 79, 0)), #2ea44f;
 }
+.btn p {
+  @apply mb-0;
+  color: #fff !important;
+}
 
 img {
   user-select: none;
@@ -168,7 +172,10 @@ img {
 
 .hero {
   @apply relative flex flex-col place-items-center justify-center px-6 pt-8 md:pt-0;
-  min-height: 80vh;
+  min-height: calc(100vh - 190px);
+}
+.hero h1 {
+  @apply text-white;
 }
 
 .hero-grid {
@@ -215,7 +222,7 @@ section svg {
 }
 
 .tabs ul {
-  @apply inline-flex relative z-30 flex-row justify-evenly place-items-center gap-2 sm:gap-y-0 sm:flex-row sm:gap-x-6 md:gap-x-12;
+  @apply inline-flex relative z-30 flex-row justify-evenly place-items-center gap-x-8 sm:gap-y-0 sm:flex-row sm:gap-x-6 md:gap-x-12;
 }
 
 .tabs ul li a {
@@ -321,6 +328,9 @@ footer ul li a:hover {
   margin: 0;
 }
 
+.utility-nav p {
+  @apply mb-0 hover:cursor-pointer hover:underline;
+}
 .sticky-nav .btn {
   @apply opacity-100 py-2 px-4;
 }
@@ -335,8 +345,9 @@ footer ul li a:hover {
 .sticky-nav .tabs {
   @apply justify-between md:justify-around;
 }
-
-
+.identicon {
+  border-radius: 50px;
+}
 
 // Responsive Media Styles
 @media screen and (max-width: 768px) {

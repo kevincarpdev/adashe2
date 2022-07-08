@@ -15,6 +15,10 @@ import PageBreakBottom from "../public/PageBreakBottom.svg";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import { MdSpaceDashboard } from 'react-icons/md';
 import Sticky from 'react-stickynode';
+import Chains from "../components/Chains";
+import TokenPrice from "../components/TokenPrice";
+import NativeBalance from "../components/NativeBalance";
+import Account from "../components/Account/Account";
 
 export default function Home() {
   const [stickyNav, setStickyNav] = useState(false)
@@ -148,7 +152,9 @@ export default function Home() {
                   className="btn"
                   onClick={login}
                 >
-                  {isAuthenticated ? 'Sign Out' : 'Connect'}
+                  {isAuthenticated ? <NativeBalance /> : <Account />}
+                  
+                  
                 </motion.button>
               </div>
             </div>
@@ -186,14 +192,18 @@ export default function Home() {
               <li><ScrollLink to='allocation' activeClass='selected' spy={true}>Token Allocaton</ScrollLink></li>
             </ul>
             <div className="utility-nav">
-              <motion.button
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 1.0 }}
-                className="btn"
-                onClick={login}
-              >
-                {isAuthenticated ? 'Sign Out' : 'Connect'}
-              </motion.button>
+              
+                {/* <TokenPrice
+                  address="0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+                  chain="eth"
+                  image="https://cloudflare-ipfs.com/ipfs/QmXttGpZrECX5qCyXbBQiqgQNytVGeZW5Anewvh2jc4psg/"
+                  size="40px"
+                /> */}
+              {/* <Chains /> */}
+              
+              <NativeBalance />
+              <Account />
+
               <button className="menuButton"><MdSpaceDashboard /></button>
             </div>
           </section>
@@ -271,7 +281,6 @@ export default function Home() {
               </motion.div>
             </div>
           </div>
-          {/* <p>Learn about our tokenomics <Link href={'/'}>here</Link></p> */}
         </section>
         {/* <div className="disclaimer">
           <p>Please make sure you are connected to the right network Mumbai mainnet and the correct address.</p>
