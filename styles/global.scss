@@ -132,7 +132,7 @@ main {
 }
 
 .subheader {
-  @apply block my-4 text-lg;
+  @apply block mb-4 text-lg;
   color: #8193B2;
   max-width: 65ch;
 }
@@ -194,17 +194,19 @@ span.highlight {
 
 section {
   @apply flex flex-col place-items-center justify-center py-12;
-  padding-top: calc(100px);
+  padding-top: 110px;
 }
 
 section svg {
   @apply max-w-lg mx-auto;
 }
+
 .sticky-inner-wrapper {
   z-index: 50;
 }
+
 .tabs {
-  @apply top-0 py-4 sticky bg-white w-full flex flex-row justify-around z-30;
+  @apply top-0 px-4 py-2 md:py-4 bg-white w-full flex flex-row justify-center md:justify-around place-items-center z-30;
   min-height: 100px;
 }
 
@@ -213,7 +215,7 @@ section svg {
 }
 
 .tabs ul {
-  @apply relative z-30 inline-flex flex-row justify-evenly place-items-center gap-2 sm:gap-y-0 sm:flex-row sm:gap-x-6 md:gap-x-12;
+  @apply inline-flex relative z-30 flex-row justify-evenly place-items-center gap-2 sm:gap-y-0 sm:flex-row sm:gap-x-6 md:gap-x-12;
 }
 
 .tabs ul li a {
@@ -295,10 +297,15 @@ footer ul li a:hover {
 .sticky-nav .menuButton {
   @apply opacity-100;
 }
+.sticky-nav #topGraphic {
+  @apply hidden;
+}
 
 .menuLogo {
-  @apply inline-flex hover:opacity-0 hover:cursor-pointer transition-opacity ease-in-out opacity-0 self-start delay-75;
+  @apply hidden md:inline-flex hover:opacity-0 hover:cursor-pointer transition-opacity ease-in-out opacity-0 delay-75;
   max-width: 60px;
+  position: relative;
+  top: 3px;
 }
 
 .sticky-nav .menuLogo {
@@ -306,16 +313,31 @@ footer ul li a:hover {
 }
 
 .utility-nav {
-  @apply inline-flex justify-center items-center;
+  @apply hidden md:inline-flex justify-center items-center;
 }
 
 .utility-nav .btn {
   @apply opacity-0 transition-opacity ease-in-out delay-75;
   margin: 0;
 }
+
 .sticky-nav .btn {
-  @apply opacity-100;
+  @apply opacity-100 py-2 px-4;
 }
+
+.sticky-nav .tabs ul {
+  @apply hidden md:inline-flex;
+}
+
+.sticky-nav .menuLogo, .sticky-nav .utility-nav {
+  @apply inline-flex;
+}
+.sticky-nav .tabs {
+  @apply justify-between md:justify-around;
+}
+
+
+
 // Responsive Media Styles
 @media screen and (max-width: 768px) {
   #topGraphic, #bottomGraphic {

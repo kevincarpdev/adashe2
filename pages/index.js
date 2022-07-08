@@ -202,7 +202,6 @@ export default function Home() {
           <div className="flex items-center justify-center">
             <div className="panel-layout">
               <motion.div
-                whileHover={{ scale: 1.1 }}
                 className="panel"
               >
                 <div className="panel-content">
@@ -217,7 +216,6 @@ export default function Home() {
           <div className="flex items-center justify-center">
             <div className="panel-layout">
               <motion.div
-                whileHover={{ scale: 1.1 }}
                 className="panel"
               >
                 <div className="panel-content">
@@ -233,7 +231,6 @@ export default function Home() {
           <div className="flex items-center justify-center">
             <div className="panel-layout">
               <motion.div
-                whileHover={{ scale: 1.1 }}
                 className="panel"
               >
                 <div className="panel-content">
@@ -245,24 +242,35 @@ export default function Home() {
           </div>
         </section>
         <section id="allocation">
-          <h2 className="page-header">Token Allocation</h2>
-          <PieChart
-            data={[
-              { title: '30%', value: 30, color: '#775BB4' },
-              { title: '30%', value: 30, color: '#2E52E1' },
-              { title: '9.5%', value: 9.5, color: '#775BB4' },
-              { title: '9.5%', value: 9.5, color: '#2E52E1' },
-              { title: '3%', value: 3, color: '#775BB4' },
-              { title: '5%', value: 5, color: '#3174C7' },
-            ]}
-            radius={PieChart.defaultProps.radius - shiftSize}
-            segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
-            label={({ dataEntry }) => dataEntry.value}
-            labelStyle={{
-              ...defaultLabelStyle,
-            }}
-            className="pieChart"
-          />
+          <div className="flex items-center justify-center">
+            <div className="panel-layout">
+              <motion.div
+                className="panel"
+              >
+                <div className="panel-content">
+                  <span className='subheader'><h3>Token Allocation</h3></span>
+                  <p>Check that graph out, yo.</p>
+                  <PieChart
+                    data={[
+                      { title: '30%', value: 30, color: '#775BB4' },
+                      { title: '30%', value: 30, color: '#2E52E1' },
+                      { title: '9.5%', value: 9.5, color: '#775BB4' },
+                      { title: '9.5%', value: 9.5, color: '#2E52E1' },
+                      { title: '3%', value: 3, color: '#775BB4' },
+                      { title: '5%', value: 5, color: '#3174C7' },
+                    ]}
+                    radius={PieChart.defaultProps.radius - shiftSize}
+                    segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
+                    label={({ dataEntry }) => dataEntry.value}
+                    labelStyle={{
+                      ...defaultLabelStyle,
+                    }}
+                    className="pieChart"
+                  />
+                </div>
+              </motion.div>
+            </div>
+          </div>
           {/* <p>Learn about our tokenomics <Link href={'/'}>here</Link></p> */}
         </section>
         {/* <div className="disclaimer">
