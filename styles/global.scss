@@ -53,7 +53,7 @@ body {
   min-height: 100%;
   margin: 0;
 }
-
+sticky-inner-wrapper 
 body {
   @apply text-white;
   font-family: var(--fontBody);
@@ -73,7 +73,7 @@ p, h1, h2, h3 {
 }
 
 h1 {
-  @apply text-5xl leading-normal;
+  @apply text-5xl leading-snug;
 }
 
 h2 {
@@ -81,8 +81,9 @@ h2 {
 }
 
 h3 {
-  @apply text-2xl;
+  font-size: 3rem;
   color: #8193B2;
+  @apply mb-2 leading-tight;
 }
 
 a {
@@ -95,7 +96,7 @@ a:hover {
 }
 
 main {
-  @apply relative bg-white pb-36;
+  @apply relative bg-white pb-36 mt-24;
   background-color: #040d21;
 }
 
@@ -116,34 +117,33 @@ main {
 }
 
 .panel {
-  @apply flex text-center p-10 min-h-screen place-items-center;
+  @apply flex text-center p-0 md:p-10 min-h-screen place-items-center;
   border-radius: 8px;
   // box-shadow: 0 0 0 1px rgb(255 255 255 / 10%), 0 3px 2px rgb(0 0 0 / 4%), 0 7px 5px rgb(0 0 0 / 2%), 0 13px 10px rgb(0 0 0 / 2%), 0 22px 17px rgb(0 0 0 / 2%);
 }
+
 .panel.transparent {
   background-color: transparent;
   box-shadow: none;
 }
+
 .panel-content svg {
   @apply max-w-xl mx-auto my-4;
 }
 
 .subheader {
-  @apply block mt-6 text-lg;
+  @apply block my-4 text-lg;
   color: #8193B2;
   max-width: 65ch;
 }
 
-.panel-content:first-of-type .subheader {
-  @apply mt-0;
-}
 .panel-content p {
   @apply mx-auto;
   max-width: 65ch;
 }
 .logo {
   max-width: 200px;
-  @apply order-1 lg:order-2 text-center col-span-2 lg:col-span-1 lg:max-w-xl;
+  @apply order-1 lg:order-2 text-center col-span-2 lg:col-span-1 lg:max-w-sm;
 }
 
 .btn {
@@ -167,13 +167,7 @@ img {
 }
 
 .hero {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  @apply relative flex flex-col place-items-center justify-center px-6 pt-8 md:pt-0;
   min-height: 80vh;
 }
 
@@ -202,22 +196,28 @@ section {
   @apply flex flex-col place-items-center justify-center py-12;
   padding-top: calc(100px);
 }
+
 section svg {
   @apply max-w-lg mx-auto;
 }
-.tabs {
-  @apply top-0 py-8 sticky bg-white w-full flex justify-center z-20;
+.sticky-inner-wrapper {
+  z-index: 50;
 }
-.tab.tab-stuck {
-  box-shadow: rgba(140, 149, 159, 0.15) 0px 3px 6px 0px, rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;
+.tabs {
+  @apply top-0 py-4 sticky bg-white w-full flex flex-row justify-around z-30;
+  min-height: 100px;
+}
+
+.tab-stuck {
+  box-shadow: inset rgba(140, 149, 159, 0.15) 0px 3px 6px 0px, rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;
 }
 
 .tabs ul {
-  @apply flex flex-col gap-y-4 sm:gap-y-0 sm:flex-row sm:gap-x-24;
+  @apply relative z-30 inline-flex flex-row justify-evenly place-items-center gap-2 sm:gap-y-0 sm:flex-row sm:gap-x-6 md:gap-x-12;
 }
 
 .tabs ul li a {
-  @apply relative no-underline text-gray-700 text-xl pb-2;
+  @apply relative no-underline text-gray-700 text-base md:text-xl leading-tight;
 }
 
 .tabs ul li a.selected {
@@ -230,8 +230,8 @@ section svg {
 }
 
 .tabs ul li a:after {
-  position: absolute;
-  bottom: 0;
+  @apply absolute;
+  bottom: -5px;
   left: 15%;
   width: 70%;
   height: 1px;
@@ -252,7 +252,7 @@ footer {
 }
 
 footer .footerLogo {
-  @apply mb-12;
+  @apply mb-8 hover:cursor-pointer;
   max-width: 125px;
 }
 footer .footerLogo path {
@@ -268,27 +268,57 @@ footer ul li a {
   color: #8193b2;
   transition: all 0.2s ease-in-out;
 }
+
 footer ul li a:hover {
   color: #fff;
 }
+
 #topGraphic, #bottomGraphic {
-  @apply left-0 w-full absolute top-0;
-  height: 40px;
-}
-#topGraphic svg {
-  @apply relative;
-  bottom: -40px;
+  @apply left-0 w-full absolute top-0 z-20;
+  height: auto;
+  top: -20px;
 }
 
 #topGraphic svg, #bottomGraphic svg{
-  @apply relative z-10;
+  @apply relative max-w-none;
 }
+
+.menuButton {
+  @apply inline-flex selection:hidden opacity-0 self-center ml-2 transition-opacity ease-in-out delay-75;
+  font-size: 2.5rem;
+    color: var(--primary);
+}
+.menuButton:hover {
+  color: var(--blue);
+}
+
+.sticky-nav .menuButton {
+  @apply opacity-100;
+}
+
+.menuLogo {
+  @apply inline-flex hover:opacity-0 hover:cursor-pointer transition-opacity ease-in-out opacity-0 self-start delay-75;
+  max-width: 60px;
+}
+
+.sticky-nav .menuLogo {
+  @apply opacity-100 hover:opacity-60;
+}
+
+.utility-nav {
+  @apply inline-flex justify-center items-center;
+}
+
+.utility-nav .btn {
+  @apply opacity-0 transition-opacity ease-in-out delay-75;
+  margin: 0;
+}
+.sticky-nav .btn {
+  @apply opacity-100;
+}
+// Responsive Media Styles
 @media screen and (max-width: 768px) {
-  #topGraphic {
-    bottom: -40px;
-  }
-  #bottomGraphic {
-    top: -10px;
+  #topGraphic, #bottomGraphic {
+    top: -0.25em;
   }
 }
-  

@@ -6,17 +6,19 @@ import { useMoralis } from "react-moralis";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import mainLogo from '../public/logo.png'
+import menuLogo from '../public/menuLogo.png'
 import Image from 'next/image'
 import { PieChart } from 'react-minimal-pie-chart';
-import { motion } from "framer-motion";
 import PageBreak from "../public/PageBreak.svg";
 import * as Scroll from 'react-scroll';
 import PageBreakBottom from "../public/PageBreakBottom.svg";
+import { motion, AnimateSharedLayout } from "framer-motion";
+import { MdSpaceDashboard } from 'react-icons/md';
+import Sticky from 'react-stickynode';
 
 export default function Home() {
-  const [stuck, setStuck] = useState(false)
+  const [stickyNav, setStickyNav] = useState(false)
   const ref = React.createRef()
-
   const { authenticate, isAuthenticated, user, Moralis } = useMoralis();
   Moralis.getSigningData = () => "Adashe (ADSE)";
   let ScrollLink = Scroll.Link;
@@ -33,6 +35,7 @@ export default function Home() {
         });
     }
   }
+
   // async function login() {
   //   await Moralis.Web3.enableWeb3();
   //   await Moralis.Web3.authenticate();
@@ -48,12 +51,22 @@ export default function Home() {
     fontFamily: 'sans-serif',
   };
   const shiftSize = 7;
-  const tabClasses = stuck ? 'tab-stuck' : 'tab-unstuck';
+  const [open, setOpen] = useState(false)
+
+  const handleStateChange = (status) => {
+    if (status.status === Sticky.STATUS_FIXED) {
+      document.body.classList.add('sticky-nav');
+    }
+    else {
+      document.body.classList.remove('sticky-nav');
+    }
+    return;
+  };
 
   useEffect(() => {
     const cachedRef = ref.current
     const observer = new IntersectionObserver(
-      ([e]) => setStuck(e.intersectionRatio < 1),
+      ([e]) => setStickyNav(e.intersectionRatio < 1),
       { threshold: [1] }
     )
     observer.observe(cachedRef)
@@ -77,28 +90,6 @@ export default function Home() {
             },
           },
           fpsLimit: 120,
-          interactivity: {
-            events: {
-              onClick: {
-                enable: true,
-                mode: "push",
-              },
-              onHover: {
-                enable: true,
-                mode: "repulse",
-              },
-              resize: true,
-            },
-            modes: {
-              push: {
-                quantity: 4,
-              },
-              repulse: {
-                distance: 120,
-                duration: 0.4,
-              },
-            },
-          },
           particles: {
             color: {
               value: "#382C53",
@@ -143,8 +134,7 @@ export default function Home() {
           detectRetina: true,
         }}
       />
-      
-      <header className="hero">
+      <header id="hero" className="hero">
         <div className="container">
           <div className="hero-grid">
             <div className="hero-text">
@@ -173,21 +163,41 @@ export default function Home() {
           </div>
         </div>
       </header>
-
       <main className="flex flex-col justify-center align-items-center text-center">
-        <div id="topGraphic">
-          <PageBreak />
-        </div>
-
-        <section className={cn(tabClasses, 'tabs')} ref={ref}>
-          <ul>
-            <li><ScrollLink to='supply' activeClass='selected' spy={true}>Supply</ScrollLink></li>
-            <li><ScrollLink to='terms' activeClass='selected' spy={true}>Terms</ScrollLink></li>
-            <li><ScrollLink to='distribution' activeClass='selected' spy={true}>Fair Distribution</ScrollLink></li>
-            <li><ScrollLink to='allocation' activeClass='selected' spy={true}>Token Allocaton</ScrollLink></li>
-          </ul>
-        </section>
-
+        <Sticky onStateChange={handleStateChange}>
+          <section className={cn(stickyNav ? 'tab-stuck' : '', 'tabs')} ref={ref}>
+            <div id="topGraphic">
+              <PageBreak />
+            </div>
+            <div className="menuLogo">
+              <ScrollLink to='hero'>
+                <Image
+                  src={menuLogo}
+                  alt="Logo"
+                  quality="85"
+                  layout="intrinsic"
+                />
+              </ScrollLink>
+            </div>
+            <ul>
+              <li><ScrollLink to='supply' activeClass='selected' spy={true}>Supply</ScrollLink></li>
+              <li><ScrollLink to='terms' activeClass='selected' spy={true}>Terms</ScrollLink></li>
+              <li><ScrollLink to='distribution' activeClass='selected' spy={true}>Fair Distribution</ScrollLink></li>
+              <li><ScrollLink to='allocation' activeClass='selected' spy={true}>Token Allocaton</ScrollLink></li>
+            </ul>
+            <div className="utility-nav">
+              <motion.button
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 1.0 }}
+                className="btn"
+                onClick={login}
+              >
+                {isAuthenticated ? 'Sign Out' : 'Connect'}
+              </motion.button>
+              <button className="menuButton"><MdSpaceDashboard /></button>
+            </div>
+          </section>
+        </Sticky>
         <section id="supply">
           <div className="flex items-center justify-center">
             <div className="panel-layout">
@@ -234,31 +244,27 @@ export default function Home() {
             </div>
           </div>
         </section>
-        
         <section id="allocation">
           <h2 className="page-header">Token Allocation</h2>
-                <PieChart
-                  data={[
-                    { title: '30%', value: 30, color: '#775BB4' },
-                    { title: '30%', value: 30, color: '#2E52E1' },
-                    { title: '9.5%', value: 9.5, color: '#775BB4' },
-                    { title: '9.5%', value: 9.5, color: '#2E52E1' },
-                    { title: '3%', value: 3, color: '#775BB4' },
-                    { title: '5%', value: 5, color: '#3174C7' },
-                  ]}
-                  radius={PieChart.defaultProps.radius - shiftSize}
-                  segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
-                  label={({ dataEntry }) => dataEntry.value}
-                  labelStyle={{
-                    ...defaultLabelStyle,
-                  }}
-                  className="pieChart"
-                />
-                {/* <p>Learn about our tokenomics <Link href={'/'}>here</Link></p> */}
-              
+          <PieChart
+            data={[
+              { title: '30%', value: 30, color: '#775BB4' },
+              { title: '30%', value: 30, color: '#2E52E1' },
+              { title: '9.5%', value: 9.5, color: '#775BB4' },
+              { title: '9.5%', value: 9.5, color: '#2E52E1' },
+              { title: '3%', value: 3, color: '#775BB4' },
+              { title: '5%', value: 5, color: '#3174C7' },
+            ]}
+            radius={PieChart.defaultProps.radius - shiftSize}
+            segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
+            label={({ dataEntry }) => dataEntry.value}
+            labelStyle={{
+              ...defaultLabelStyle,
+            }}
+            className="pieChart"
+          />
+          {/* <p>Learn about our tokenomics <Link href={'/'}>here</Link></p> */}
         </section>
-        
-        
         {/* <div className="disclaimer">
           <p>Please make sure you are connected to the right network Mumbai mainnet and the correct address.</p>
           <p>NOTE: you may need to <Link href={'/'}>bridge</Link> or <Link href={'/'}>swap</Link> assets.</p>
@@ -266,18 +272,19 @@ export default function Home() {
           <p>We recommend that you don&apos;t lower the gas limit.</p>
         </div> */}
       </main>
-      <footer>
+      <footer id="footer">
         <div id="bottomGraphic">
           <PageBreakBottom />
         </div>
-
         <div className="footerLogo">
-          <Image
-            src={mainLogo}
-            alt="Logo"
-            quality="85"
-            layout="intrinsic"
-          />
+          <ScrollLink to='hero' activeClass='selected' spy={true}>
+            <Image
+              src={mainLogo}
+              alt="Logo"
+              quality="85"
+              layout="intrinsic"
+            />
+          </ScrollLink>
         </div>
         <ul>
           <li><ScrollLink to='supply' activeClass='selected' spy={true}>Supply</ScrollLink></li>
@@ -286,7 +293,6 @@ export default function Home() {
           <li><ScrollLink to='allocation' activeClass='selected' spy={true}>Token Allocaton</ScrollLink></li>
         </ul>
       </footer>
-
     </div>
   );
 }
