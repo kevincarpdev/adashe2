@@ -1,6 +1,6 @@
-import "../styles/global.scss";
 import "antd/dist/antd.css";
 import "../styles/style.css";
+import "../styles/global.scss";
 
 import { MoralisProvider } from "react-moralis";
 

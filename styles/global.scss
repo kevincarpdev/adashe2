@@ -68,7 +68,7 @@ p {
  @apply text-lg mb-0;
 }
 
-p, h1, h2, h3 {
+h1, h2, h3 {
   color: #fff;
 }
 
@@ -95,6 +95,9 @@ a:hover {
   @apply no-underline;
 }
 
+ul {
+  @apply mb-0;
+}
 main {
   @apply relative bg-white pb-36 mt-24;
   background-color: #040d21;
@@ -130,11 +133,14 @@ main {
 .panel-content svg {
   @apply max-w-xl mx-auto my-4;
 }
+.panel-content p {
+  @apply text-white;
+}
 
 .subheader {
-  @apply block mb-4 text-lg;
+  @apply block mb-4 text-xl;
   color: #8193B2;
-  max-width: 65ch;
+  max-width: 60ch;
 }
 
 .panel-content p {
@@ -217,9 +223,9 @@ section svg {
   min-height: 100px;
 }
 
-.tab-stuck {
-  box-shadow: inset rgba(140, 149, 159, 0.15) 0px 3px 6px 0px, rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;
-}
+// .tab-stuck {
+//   box-shadow: inset rgba(140, 149, 159, 0.15) 0px 3px 6px 0px, rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;
+// }
 
 .tabs ul {
   @apply inline-flex relative z-30 flex-row justify-evenly place-items-center gap-x-8 sm:gap-y-0 sm:flex-row sm:gap-x-6 md:gap-x-12;
@@ -285,7 +291,7 @@ footer ul li a:hover {
 #topGraphic, #bottomGraphic {
   @apply left-0 w-full absolute top-0 z-20;
   height: auto;
-  top: -20px;
+  top: -30px;
 }
 
 #topGraphic svg, #bottomGraphic svg{
@@ -336,7 +342,7 @@ footer ul li a:hover {
 }
 
 .sticky-nav .tabs ul {
-  @apply hidden md:inline-flex;
+  @apply hidden md:inline-flex mb-0;
 }
 
 .sticky-nav .menuLogo, .sticky-nav .utility-nav {
@@ -350,8 +356,16 @@ footer ul li a:hover {
 }
 .walletConnect {
   height: 59px;
-
 }
+
+.ant-modal-body a, .ant-modal-body .ant-btn-primary {
+  color: var(--blue)
+}
+ .ant-modal-body .ant-btn-primary {
+  @apply hover:text-white;
+ }
+
+
 // Responsive Media Styles
 @media screen and (max-width: 768px) {
   #topGraphic, #bottomGraphic {

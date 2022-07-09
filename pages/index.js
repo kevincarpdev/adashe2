@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
 import cn from 'classnames'
 import Head from "next/head";
 import { useMoralis } from "react-moralis";
+import { Card, Modal } from "antd";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import mainLogo from '../public/logo.png'
@@ -16,14 +16,15 @@ import { motion, AnimateSharedLayout } from "framer-motion";
 import { MdSpaceDashboard } from 'react-icons/md';
 import Sticky from 'react-stickynode';
 import Chains from "../components/Chains";
-import TokenPrice from "../components/TokenPrice";
 import NativeBalance from "../components/NativeBalance";
 import Account from "../components/Account/Account";
+import DEX from "../components/DEX";
 
 export default function Home() {
   const [stickyNav, setStickyNav] = useState(false)
   const ref = React.createRef()
   const { authenticate, isAuthenticated, user, Moralis } = useMoralis();
+  const [isModalVisible, setIsModalVisible] = useState(false);
   Moralis.getSigningData = () => "Adashe (ADSE)";
   let ScrollLink = Scroll.Link;
 
@@ -143,7 +144,7 @@ export default function Home() {
           <div className="hero-grid">
             <div className="hero-text">
               <h1>Buy Adashe (ADSE)</h1>
-              <div className="panel-content">
+              <div>
                 <span className='subheader'>Adashe is the primary utility token of our ecosystem and enables you to participate in our upcoming generation staking rewards program as well as earn by providing stability to the ADSE Stablecoin.</span>
                 <p><span className="price"><span className="highlight">1 ADSE = $0.00025 USD</span></span></p>
                 <motion.button
@@ -190,6 +191,7 @@ export default function Home() {
               <li><ScrollLink to='terms' activeClass='selected' spy={true}>Terms</ScrollLink></li>
               <li><ScrollLink to='distribution' activeClass='selected' spy={true}>Fair Distribution</ScrollLink></li>
               <li><ScrollLink to='allocation' activeClass='selected' spy={true}>Token Allocaton</ScrollLink></li>
+              <li><ScrollLink activeClass='selected' onClick={() => setIsModalVisible(true)}>Exchange</ScrollLink></li>
             </ul>
             <div className="utility-nav">
               
@@ -310,7 +312,32 @@ export default function Home() {
           <li><ScrollLink to='allocation' activeClass='selected' spy={true}>Token Allocaton</ScrollLink></li>
         </ul>
       </footer>
+      <Modal
+        visible={isModalVisible}
+        footer={null}
+        onCancel={() => setIsModalVisible(false)}
+        bodyStyle={{
+          padding: "15px",
+          fontSize: "17px",
+          fontWeight: "500",
+        }}
+        style={{ fontSize: "16px", fontWeight: "500" }}
+        width="500px"
+      >
+        Exchange
+        <Card
+          style={{
+            marginTop: "10px",
+            borderRadius: "1rem",
+          }}
+          bodyStyle={{ padding: "15px" }}
+        >
+          <DEX chain="eth" />
+
+        </Card>
+      </Modal>
     </div>
+    
   );
 }
 
